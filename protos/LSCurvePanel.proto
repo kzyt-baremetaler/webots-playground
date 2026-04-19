@@ -1,0 +1,29 @@
+#VRML_SIM R2025a utf8
+PROTO LSCurvePanel [
+  field SFVec3f    translation  0 0 0
+  field SFRotation rotation     0 0 1 0
+  field SFVec3f    size         0.8 0.8 0.001
+]
+{
+    Solid {
+      translation IS translation
+      rotation IS rotation
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+            }
+            texture ImageTexture {
+              url [
+                "curve3.jpg"
+              ]
+            }
+          }
+          geometry DEF BOX Box {
+            size IS size
+          }
+        }
+      ]
+      name "LSCurve"
+    }
+}

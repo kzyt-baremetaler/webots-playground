@@ -1,0 +1,6 @@
+# 画像や3Dモデルをバイナリとして固定（改行コード変換の防止）
+*.jpg binary
+*.png binary
+*.dae binary
+*.stl binary
+

@@ -1,0 +1,200 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "../protos/StratePanel.proto"
+EXTERNPROTO "../protos/SCurvePanel.proto"
+EXTERNPROTO "../protos/LSCurvePanel.proto"
+EXTERNPROTO "../protos/RampPanel.proto"
+EXTERNPROTO "../protos/BridgePanel.proto"
+EXTERNPROTO "../protos/TfProconTank.proto"
+EXTERNPROTO "../protos/GateManager2.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material2 "trackMaterial"
+      coulombFriction [
+        500
+      ]
+      forceDependentSlip [
+        1
+      ]
+    }
+    ContactProperties {
+      coulombFriction [
+        -1
+      ]
+      bounce 0
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.21777947589054936 0.28735476033358376 0.9327375523664019 1.3646685413464377
+  position -1.3093055020470252 -4.52080161601463 2.131141545019597
+  follow "blue car"
+  followType "None"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 4 4.4
+  floorTileSize 0.2 0.2
+}
+Robot {
+  children [
+    Group {
+      children [
+        StratePanel {
+          translation 0 -2 0
+          rotation 0 0 1 -1.5707953071795862
+          size 0.4 2.4 0.001
+        }
+        StratePanel {
+          translation 0 -1.6 0
+          rotation 0 0 1 -1.5707953071795862
+          size 0.4 2.4 0.001
+        }
+        StratePanel {
+          translation 1.8 -0.6 0
+          size 0.4 1.6 0.001
+        }
+        StratePanel {
+          translation 1.4 -0.6 0
+          size 0.4 1.6 0.001
+        }
+        StratePanel {
+          translation -1 -0.4 0
+        }
+        StratePanel {
+          translation -0.6 -0.4 0
+        }
+        StratePanel {
+          translation -1.8 1 0
+          size 0.4 0.8 0.001
+        }
+        StratePanel {
+          translation -1.4 1 0
+          size 0.4 0.8 0.001
+        }
+        StratePanel {
+          translation -0.8 2 0
+          rotation 0 0 1 1.5708
+          size 0.4 0.8 0.001
+        }
+        StratePanel {
+          translation -1 1.6 0
+          rotation 0 0 1 1.5708
+        }
+        StratePanel {
+          translation -0.6 1.2 0
+          rotation 0 0 -1 0
+        }
+        StratePanel {
+          translation 0.2 -0.4 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        StratePanel {
+          translation 0.2 0.4 0
+          rotation 0 0 -1 0
+        }
+        StratePanel {
+          translation -0.2 0.8 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        SCurvePanel {
+          translation -0.600003 0.8 0
+          rotation 0 0 1 1.5708
+        }
+        SCurvePanel {
+          translation 0.2 0.8 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        LSCurvePanel {
+          translation -1.6 -1.8 0
+          rotation 0 0 1 1.5708
+        }
+        LSCurvePanel {
+          translation 1.6 -1.8 0
+          rotation 0 0 1 3.14159
+        }
+        LSCurvePanel {
+          translation -0.8 -1 0
+          rotation 0 0 1 3.14159
+        }
+        LSCurvePanel {
+          translation -1.6 -1 0
+        }
+        LSCurvePanel {
+          translation -0.8 0.199999 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        LSCurvePanel {
+          translation -1.6 0.2 0
+          rotation 0 0 1 1.5708
+        }
+        LSCurvePanel {
+          translation -1.6 1.8 0
+        }
+        LSCurvePanel {
+          translation 0.8 -0.2 0
+          rotation 0 0 1 3.14159
+        }
+        LSCurvePanel {
+          translation 0.8 0.6 0
+        }
+        LSCurvePanel {
+          translation 1.6 0.6 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        SCurvePanel {
+          translation -0.200002 2 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        SCurvePanel {
+          translation -0.6 1.6 0
+          rotation 0 0 1 -1.5707953071795862
+        }
+        SCurvePanel {
+          translation 0.2 0 0
+          rotation 0 0 1 1.5708
+        }
+        SCurvePanel {
+          translation -0.2 -0.4 0
+          rotation 0 0 1 1.5708
+        }
+        RampPanel {
+          translation -0.199996 1.4 -0.000783064114966911
+          rotation 0 0 1 3.14159
+        }
+        RampPanel {
+          translation -0.199996 0.2 -0.000783064114966911
+        }
+        BridgePanel {
+          translation -0.2 0.8 0.1989217081237
+        }
+      ]
+    }
+  ]
+}
+DEF BLUE TfProconTank {
+  translation -0.1 -2 0.039969
+  rotation -0.0014675124123282566 -0.9999950617128848 -0.0027790209001451235 5.278063280247021e-06
+  name "blue car"
+  bodyColor 0.333333 0 1
+}
+DEF RED TfProconTank {
+  translation -0.1 -1.6 0.04
+  rotation -0.0003829352961551363 0.0007920491356084786 -0.999999613009288 0.04053445425352107
+  name "red car"
+  bodyColor 1 0 0
+}
+DEF GATE GateManager2 {
+  translation 0 -1.8 0
+  rotation 0 0 1 3.14
+  name "BLUE"
+}

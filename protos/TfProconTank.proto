@@ -1,0 +1,750 @@
+#VRML_SIM R2025a utf8
+PROTO TfProconTank [
+  field SFVec3f    translation  -0.3 0.51 0.03
+  field SFRotation rotation     0 0 1 0
+  field SFFloat    bodyMass     0.1
+  field SFString   name         "track name"
+  field SFString   controller   "track_controller"
+  field SFColor    bodyColor   0.5 1 0.5
+]
+{
+Robot {
+  translation IS translation
+  rotation IS rotation
+  children [
+    Solid {
+      children [
+        Solid {
+          translation -0.05 0 0.03
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 1 0
+                }
+              }
+              geometry Box {
+                size 0.06885 0.05334 0.001
+              }
+            }
+          ]
+        }
+      ]
+      name "Arduino UNO R4"
+    }
+    Pose {
+      translation 0.15 0 -0.01
+      children [
+        Group {
+          children [
+            Camera {
+              translation 0 0.049 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_0"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 0.035 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_1"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 0.021 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_2"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 0.007 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_3"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 -0.007 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_4"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 -0.021 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_5"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 -0.035 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_6"
+              width 7
+              height 7
+            }
+            Camera {
+              translation 0 -0.049 0
+              rotation 0 1 0 1.5708
+              children [
+                Pose {
+                  rotation 0.35740699927911007 -0.35740699927911007 -0.8628559982596194 1.71777
+                  children [
+                    SpotLight {
+                      attenuation 0 0 1
+                      beamWidth 0.1
+                      cutOffAngle 0.4
+                      direction 0 1 -1
+                      intensity 0.005
+                    }
+                  ]
+                }
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Box {
+                    size 0.01 0.01 0.01
+                  }
+                }
+              ]
+              name "LightSensor_7"
+              width 7
+              height 7
+            }
+          ]
+        }
+      ]
+    }    
+    Track {
+      translation 0 0.06 0
+      children [
+        DEF F_WHEEL TrackWheel {
+          position 0.09 0
+          rotation 0.5079295021404381 0.6090997025553521 -0.6091019399101832 2.2016534809402653
+          radius 0.02
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            }
+          ]
+        }
+        TrackWheel {
+          position 0.05 -0.03
+          rotation 0.28828745847556275 0.6770845491372957 -0.6770870362111845 2.580240589626366
+          radius 0.01
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            }
+          ]
+        }
+        TrackWheel {
+          position -0.05 -0.03
+          rotation 0.28828745847556275 0.6770845491372957 -0.6770870362111845 2.580240589626366
+          radius 0.01
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            }
+          ]
+        }
+        DEF R_WHEEL TrackWheel {
+          position -0.09 0
+          rotation 0.5079295021404381 0.6090997025553521 -0.6091019399101832 2.2016534809402653
+          radius 0.02
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            }
+          ]
+        }
+      ]
+      name "track L"
+      contactMaterial "trackMaterial"
+      boundingObject Group {
+        children [
+          Pose {
+            translation -0.09 0 0
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            ]
+          }
+          Pose {
+            translation -0.05 0 -0.03
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            ]
+          }
+          Pose {
+            translation 0.05 0 -0.03
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            ]
+          }
+          Pose {
+            translation 0.09 0 0
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            ]
+          }
+          Box {
+            size 0.18 0.02 0.04
+          }
+          Pose {
+            translation 0 0 -0.03
+            children [
+              Box {
+                size 0.1 0.015 0.02
+              }
+            ]
+          }
+          Pose {
+            translation -0.076 0 -0.028
+            rotation 0 1 0 0.44
+            children [
+              Box {
+                size 0.05 0.015 0.001
+              }
+            ]
+          }
+          Pose {
+            translation 0.076 0 -0.028
+            rotation 0 1 0 -0.44
+            children [
+              Box {
+                size 0.05 0.015 0.001
+              }
+            ]
+          }
+        ]
+      }
+      physics Physics {
+      }
+      device [
+        LinearMotor {
+          name "LeftMotor"
+          maxVelocity 6.02
+          maxForce 2.32
+        }
+      ]
+      animatedGeometry Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0.3 0.3 0.3
+          }
+        }
+        geometry Box {
+          size 0.005 0.015 0.002
+        }
+      }
+      geometriesCount 80
+    }
+    Track {
+      translation 0 -0.06 0
+      children [
+        TrackWheel {
+          position 0.09 0
+          rotation 0.5384735235260042 -0.5958370818893787 0.5958392705311052 2.15369440014338
+          radius 0.02
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            }
+          ]
+        }
+        TrackWheel {
+          position 0.05 -0.03
+          rotation 0.7149167761116942 -0.49441491047799685 0.49441672658911556 1.9002616761601527
+          radius 0.01
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            }
+          ]
+        }
+        TrackWheel {
+          position -0.05 -0.03
+          rotation 0.7149167761116942 -0.49441491047799685 0.49441672658911556 1.9002616761601527
+          radius 0.01
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            }
+          ]
+        }
+        TrackWheel {
+          position -0.09 0
+          rotation 0.5384735235260042 -0.5958370818893787 0.5958392705311052 2.15369440014338
+          radius 0.02
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.333333 1 0
+                }
+              }
+              geometry Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            }
+          ]
+        }
+      ]
+      name "track R"
+      contactMaterial "trackMaterial"
+      boundingObject Group {
+        children [
+          Pose {
+            translation -0.09 0 0
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            ]
+          }
+          Pose {
+            translation -0.05 0 -0.03
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            ]
+          }
+          Pose {
+            translation 0.05 0 -0.03
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.01
+              }
+            ]
+          }
+          Pose {
+            translation 0.09 0 0
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Cylinder {
+                height 0.015
+                radius 0.02
+              }
+            ]
+          }
+          Box {
+            size 0.18 0.02 0.04
+          }
+          Pose {
+            translation 0 0 -0.03
+            children [
+              Box {
+                size 0.1 0.015 0.02
+              }
+            ]
+          }
+          Pose {
+            translation -0.076 0 -0.028
+            rotation 0 1 0 0.44
+            children [
+              Box {
+                size 0.05 0.015 0.001
+              }
+            ]
+          }
+          Pose {
+            translation 0.076 0 -0.028
+            rotation 0 1 0 -0.44
+            children [
+              Box {
+                size 0.05 0.015 0.001
+              }
+            ]
+          }
+        ]
+      }
+      physics Physics {
+      }
+      device [
+        LinearMotor {
+          name "RightMotor"
+          maxVelocity 6.02
+          maxForce 2.32
+        }
+      ]
+      animatedGeometry Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0.3 0.3 0.3
+          }
+        }
+        geometry Box {
+          size 0.005 0.015 0.002
+        }
+      }
+      geometriesCount 80
+    }
+    Solid {
+      children [
+        DEF BODY_BASE Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.5 1 0.5
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 0.002
+          }
+        }
+      ]
+      name "body base"
+      boundingObject USE BODY_BASE
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0 0 0.02
+      children [
+        DEF BODY_BASE Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor IS bodyColor
+            }
+          }
+          geometry Box {
+            size 0.2 0.1 0.002
+          }
+        }
+      ]
+      name "upper body"
+      boundingObject USE BODY_BASE
+      physics Physics {
+      }
+    }
+    Group {
+      children [
+        Solid {
+          translation -0.098 0.048 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+              }
+              geometry Cylinder {
+                height 0.02
+                radius 0.001
+              }
+            }
+          ]
+        }
+        Solid {
+          translation 0.098 0.048 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+              }
+              geometry Cylinder {
+                height 0.02
+                radius 0.001
+              }
+            }
+          ]
+          name "solid(1)"
+        }
+        Solid {
+          translation -0.098 -0.048 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+              }
+              geometry Cylinder {
+                height 0.02
+                radius 0.001
+              }
+            }
+          ]
+          name "solid(2)"
+        }
+        Solid {
+          translation 0.098 -0.048 0.01
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+              }
+              geometry Cylinder {
+                height 0.02
+                radius 0.001
+              }
+            }
+          ]
+          name "solid(3)"
+        }
+      ]
+    }
+  ]
+  name IS name
+  boundingObject Group {
+    children [
+      USE BODY_BASE
+    ]
+  }
+  physics Physics {
+    density -1
+    mass IS bodyMass
+  }
+  controller IS controller
+}
+
+}

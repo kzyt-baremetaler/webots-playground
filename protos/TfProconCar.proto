@@ -1,0 +1,241 @@
+#VRML_SIM R2025a utf8
+PROTO TfProconCar [
+  field SFVec3f    translation  -0.3 0.51 0.03
+  field SFRotation rotation     0 0 1 0
+  field SFString   name         "track name"
+  field SFString   controller   "car_test"
+  field SFColor    bodyColor   0.5 1 0.5
+]
+{
+Robot {
+  translation IS translation
+  rotation IS rotation
+  children [
+    DEF BODY Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor IS bodyColor
+        }
+      }
+      geometry Box {
+        size 0.3 0.15 0.01
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.14 0.11 0
+        minStop -0.6
+        maxStop 0.6
+      }
+      device [
+        RotationalMotor {
+          name "leftServo"
+          minPosition -0.6
+          maxPosition 0.6
+        }
+      ]
+      endPoint Solid {
+        translation 0.14 0.11 0
+        rotation 0 1 0 0
+        children [
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 1 0
+            }
+            device [
+              PositionSensor {
+                name "leftFrontWheelSpeed"
+              }
+            ]
+            endPoint DEF WHEEL2 Solid {
+              rotation 1 0 0 1.5708
+              children [
+                DEF WHEEL Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 1
+                  }
+                  geometry Cylinder {
+                    height 0.01
+                    radius 0.03
+                  }
+                }
+              ]
+              name "leftFrontWheel"
+              contactMaterial "wheelMaterial"
+              boundingObject USE WHEEL
+              physics Physics {
+                density -1
+                mass 0.02
+              }
+            }
+          }
+        ]
+        name "leftKnuckle"
+        boundingObject DEF WHEEL_AXIS Pose {
+          translation 0 -0.025 0
+          rotation 1 0 0 1.5708
+          children [
+            Cylinder {
+              height 0.02
+              radius 0.005
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.005
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.14 -0.11 0
+        minStop -0.6
+        maxStop 0.6
+      }
+      device [
+        RotationalMotor {
+          name "rightServo"
+          minPosition -0.6
+          maxPosition 0.6
+          maxTorque 20
+        }
+      ]
+      endPoint Solid {
+        translation 0.14 -0.11 0
+        children [
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 1 0
+            }
+            device [
+              PositionSensor {
+                name "rightFrontWheelSpeed"
+              }
+            ]
+            endPoint DEF WHEEL2 Solid {
+              rotation 1 0 0 1.5708
+              children [
+                DEF WHEEL Shape {
+                  appearance PBRAppearance {
+                    baseColor 0.1 0.1 0.1
+                    roughness 1
+                  }
+                  geometry Cylinder {
+                    height 0.01
+                    radius 0.03
+                  }
+                }
+              ]
+              name "rightFrontWheel"
+              contactMaterial "wheelMaterial"
+              boundingObject USE WHEEL
+              physics Physics {
+                density -1
+                mass 0.02
+              }
+            }
+          }
+        ]
+        name "rightKnuckle"
+        boundingObject DEF WHEEL_AXIS Pose {
+          translation 0 0.025 0
+          rotation 1 0 0 1.5708
+          children [
+            Cylinder {
+              height 0.02
+              radius 0.005
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.005
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 2.7250179873221216
+        axis 0 1 0
+        anchor -0.14 -0.11 0
+      }
+      device [
+        RotationalMotor {
+          name "rightMotor"
+          acceleration 1
+        }
+      ]
+      endPoint Solid {
+        translation -0.14 -0.11 0
+        rotation 0.14780761774963422 0.6993387287927517 -0.6993412976120572 2.8481034723146754
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0.1 0.1 0.1
+              roughness 1
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.03
+            }
+          }
+        ]
+        name "rightRearWheel"
+        contactMaterial "wheelMaterial"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.03
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 2.725017987203737
+        axis 0 1 0
+        anchor -0.14 0.11 0
+      }
+      device [
+        RotationalMotor {
+          name "leftMotor"
+          acceleration 1
+        }
+      ]
+      endPoint Solid {
+        translation -0.14 0.11 0
+        rotation 0.1478076177919343 0.6993387287882816 -0.6993412976075871 2.8481034722318843
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0.1 0.1 0.1
+              roughness 1
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.03
+            }
+          }
+        ]
+        name "leftRearWheel"
+        contactMaterial "wheelMaterial"
+        boundingObject USE WHEEL
+        physics Physics {
+          density -1
+          mass 0.03
+        }
+      }
+    }
+  ]
+  boundingObject USE BODY
+  name IS name
+  physics Physics {
+    density -1
+    mass 0.2
+  }
+  controller IS controller
+}
+}

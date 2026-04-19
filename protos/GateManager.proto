@@ -1,0 +1,77 @@
+#VRML_SIM R2025a utf8
+PROTO GateManager [
+  field SFVec3f    translation  0 -1.4 0
+  field SFRotation rotation     0 0 1 -1.5707953071795862
+]
+{
+ Robot {
+  translation IS translation
+  rotation IS rotation
+  children [
+    Display {
+      width 128
+      height 40
+    }
+    Solid {
+      children [
+        Solid {
+          translation 0 0 0.35
+          children [
+            Shape {
+              geometry DEF BANNER Box {
+                size 0.01 0.4 0.05
+              }
+            }
+          ]
+        }
+        DistanceSensor {
+          translation 0 -0.19 0.03
+          rotation 0 0 1 1.5708
+          lookupTable [
+            0 0 0
+            0.4 1000 0
+          ]
+        }
+        Solid {
+          translation 0 -0.2 0.2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                }
+              }
+              geometry DEF PILLAR Cylinder {
+                height 0.4
+                radius 0.01
+              }
+            }
+          ]
+          name "pillar R"
+          boundingObject USE PILLAR
+        }
+        Solid {
+          translation 0 0.2 0.2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                }
+              }
+              geometry DEF PILLAR Cylinder {
+                height 0.4
+                radius 0.01
+              }
+            }
+          ]
+          name "pillar L"
+          boundingObject USE PILLAR
+        }
+      ]
+      name "Gate"
+    }
+  ]
+  name "Gate"
+  controller "gate_controller"
+  supervisor TRUE
+}   
+}
