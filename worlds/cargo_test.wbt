@@ -1,0 +1,340 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.35959219387696634 0.398613067167454 -0.8436830428461302 1.637696288039565
+  position 0.014239630154820857 1.0324805344337382 2.599312082077466
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 20 20
+}
+Robot {
+  translation 0 0 0.06
+  children [
+    Solid {
+      translation 0 0 0.1
+      children [
+        HingeJoint {
+          device [
+            RotationalMotor {
+              name "bodyMotor"
+            }
+          ]
+          endPoint Solid {
+            children [
+              Pose {
+                translation 0.15 0 1.4
+                children [
+                  DistanceSensor {
+                    locked TRUE
+                  }
+                ]
+              }
+              Pose {
+                translation 0 0 0.96
+                children [
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.92549 0.92549 0
+                      }
+                    }
+                    geometry Cylinder {
+                      height 1
+                      radius 0.15
+                    }
+                  }
+                ]
+              }
+              Solid {
+                translation 0 0 0.26
+                children [
+                  SliderJoint {
+                    device [
+                      LinearMotor {
+                      }
+                    ]
+                    endPoint Solid {
+                      translation -0.5 0 0
+                      children [
+                        DistanceSensor {
+                        }
+                        Shape {
+                          appearance Appearance {
+                            material Material {
+                              diffuseColor 0.878431 0.878431 0
+                            }
+                          }
+                          geometry Box {
+                            size 0.02 0.5 0.5
+                          }
+                        }
+                        Camera {
+                          name "lift camera"
+                        }
+                        Connector {
+                        }
+                      ]
+                      name "lift"
+                    }
+                  }
+                  Shape {
+                    appearance Appearance {
+                      material Material {
+                        diffuseColor 0.92549 0.92549 0
+                      }
+                    }
+                    geometry Box {
+                      size 0.8 0.8 0.4
+                    }
+                  }
+                ]
+                name "upper base"
+              }
+            ]
+            name "upperBody"
+            boundingObject Group {
+              children [
+                Pose {
+                  translation 0 0 0.96
+                  children [
+                    Cylinder {
+                      height 1
+                      radius 0.15
+                    }
+                  ]
+                }
+                Pose {
+                  translation 0 0 0.26
+                  children [
+                    Box {
+                      size 0.8 0.8 0.4
+                    }
+                  ]
+                }
+              ]
+            }
+            physics Physics {
+            }
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.5 0.5 0.5
+            }
+          }
+          geometry DEF BOX Box {
+            size 0.6 0.7 0.2
+          }
+        }
+        Track {
+          translation 0 -0.4 -0.05
+          children [
+            TrackWheel {
+              position 0.4 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry DEF WHEEL Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+            TrackWheel {
+              position -0.4 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+          ]
+          name "track_R"
+          contactMaterial "trackMaterial"
+          boundingObject Group {
+            children [
+              Box {
+                size 0.8 0.1 0.2
+              }
+              Pose {
+                translation 0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+              Pose {
+                translation -0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+            ]
+          }
+          device [
+            LinearMotor {
+              name "rightMotor"
+              maxVelocity 3
+              maxForce 5
+            }
+          ]
+          animatedGeometry Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.3 0.3 0.3
+              }
+            }
+            geometry Box {
+              size 0.03 0.1 0.01
+            }
+          }
+          geometriesCount 50
+        }
+        Track {
+          translation 0 0.4 -0.05
+          children [
+            TrackWheel {
+              position 0.4 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry DEF WHEEL Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+            TrackWheel {
+              position -0.4 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+          ]
+          name "track_L"
+          contactMaterial "trackMaterial"
+          boundingObject Group {
+            children [
+              Pose {
+                translation 0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+              Pose {
+                translation -0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+            ]
+          }
+          device [
+            LinearMotor {
+              name "leftMotor"
+              maxVelocity 3
+              maxForce 5
+            }
+          ]
+          animatedGeometry Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.3 0.3 0.3
+              }
+            }
+            geometry Box {
+              size 0.03 0.1 0.01
+            }
+          }
+          geometriesCount 50
+        }
+      ]
+      name "Shasi"
+      boundingObject Group {
+        children [
+          Pose {
+            translation 0 0.4 -0.05
+            children [
+              Box {
+                size 0.8 0.1 0.21
+              }
+            ]
+          }
+          Pose {
+            translation 0.4 -0.4 -0.05
+            rotation -1 -9.58979e-09 9.58975e-09 -1.5707953071795862
+            children [
+              USE WHEEL
+            ]
+          }
+          Pose {
+            translation -0.4 -0.4 -0.05
+            rotation -1 -9.58979e-09 9.58975e-09 -1.5707953071795862
+            children [
+              USE WHEEL
+            ]
+          }
+          Pose {
+            translation -0.4 0.4 -0.05
+            rotation 1 0 0 1.5708003061004252
+            children [
+              USE WHEEL
+            ]
+          }
+          Pose {
+            translation 0.4 0.4 -0.05
+            rotation 1 0 0 1.5708003061004252
+            children [
+              USE WHEEL
+            ]
+          }
+          Pose {
+            children [
+              USE BOX
+            ]
+          }
+        ]
+      }
+      physics Physics {
+      }
+    }
+  ]
+}
