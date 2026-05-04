@@ -3,18 +3,34 @@
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/FormedConcrete.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/OldSteel.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Cardboard.proto"
 
 WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material1 "platform"
+      material2 "crate"
+    }
+    ContactProperties {
+      material1 "floor"
+      material2 "platform"
+      softERP 0.4
+      softCFM 1e-05
+    }
+  ]
 }
 Viewpoint {
-  orientation 0.1621592457817116 -0.01597340837649487 -0.9866353071081251 3.3353426179036054
-  position 5.968723860825318 -0.9181533232905582 1.569857023802663
+  orientation -0.154123889755337 -0.36979311580267044 0.9162417138024428 5.42938686344433
+  position -3.8645987592057423 4.232878771033846 3.085188208320056
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
+  contactMaterial "floor"
   floorSize 20 20
   floorTileSize 20 20
   floorAppearance Appearance {
@@ -24,6 +40,77 @@ RectangleArena {
       ]
     }
   }
+  wallHeight 1.5
+  wallAppearance FormedConcrete {
+  }
+}
+Robot {
+  translation 2.25 -1 0.75
+  rotation 0 0 1 3.14159
+  children [
+    Solid {
+      translation 0.251 0.19 3.17853e-07
+      rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 2.0944
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "crate_0_0.png"
+              ]
+            }
+          }
+          geometry Plane {
+            size 0.1 0.1
+          }
+        }
+      ]
+      name "Marker Right"
+    }
+    Solid {
+      translation 0.251 -0.19 0
+      rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 2.0944
+      children [
+        Shape {
+          appearance Appearance {
+            texture ImageTexture {
+              url [
+                "crate_0_1.png"
+              ]
+            }
+          }
+          geometry Plane {
+            size 0.1 0.1
+          }
+        }
+      ]
+      name "Marker Left"
+    }
+    Connector {
+      translation 0.25 0 0
+    }
+    Accelerometer {
+    }
+    Solid {
+      children [
+        Shape {
+          appearance Cardboard {
+          }
+          geometry DEF BOX Box {
+            size 0.5 0.5 0.5
+          }
+        }
+      ]
+    }
+  ]
+  name "crate"
+  contactMaterial "crate"
+  boundingObject USE BOX
+  physics Physics {
+    density 100
+  }
+  controller "crate"
+  customData "broken"
 }
 Robot {
   translation 0 0 0.06
@@ -153,15 +240,8 @@ Robot {
           ]
           endPoint Solid {
             translation 0 0 0.1
+            rotation 1 0 0 0
             children [
-              Pose {
-                translation 0.15 0 1.4
-                children [
-                  DistanceSensor {
-                    locked TRUE
-                  }
-                ]
-              }
               Solid {
                 translation 0 0 0.16
                 children [
@@ -428,4 +508,23 @@ Robot {
       }
     }
   ]
+  name "cargo"
+}
+Robot {
+  translation 3 -1 0.25
+  children [
+    Solid {
+      children [
+        Shape {
+          appearance OldSteel {
+          }
+          geometry DEF BOX Box {
+            size 2 2 0.5
+          }
+        }
+      ]
+    }
+  ]
+  name "platform"
+  boundingObject USE BOX
 }

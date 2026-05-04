@@ -1,1 +1,4 @@
 worlds/.*.wbproj
+controllers/*/build
+controllers/*/*.exe
+worlds/.*.jpg
