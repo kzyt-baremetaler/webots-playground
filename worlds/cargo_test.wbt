@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.35959219387696634 0.398613067167454 -0.8436830428461302 1.637696288039565
-  position 0.014239630154820857 1.0324805344337382 2.599312082077466
+  orientation 0.01789757878216726 0.01607308932557175 -0.9997106243675058 1.6782385480395956
+  position 0.2906156653489065 2.8355412824841055 0.3800520576954152
 }
 TexturedBackground {
 }
@@ -23,6 +23,120 @@ Robot {
     Solid {
       translation 0 0 0.1
       children [
+        Pose {
+          translation 0 0 0.13
+          children [
+            Lidar {
+              translation 0.34 0 0
+              name "front lidar"
+            }
+            Lidar {
+              translation -0.34 0 0
+              rotation 0 0 1 3.14159
+              name "rear lidar"
+            }
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.5 0.5 0.5
+                }
+              }
+              geometry Box {
+                size 0.6 0.7 0.05
+              }
+            }
+            Camera {
+              translation 3.67321e-08 0 -0.02
+              rotation 0 1 0 1.5708
+              children [
+                SpotLight {
+                  attenuation 0 0 1
+                  beamWidth 0.7
+                  direction 1 0 0
+                }
+              ]
+              name "bottom camera"
+              fieldOfView 1
+            }
+            Camera {
+              translation 0.35 0 0
+              rotation 0 -1 0 -0.523595307179586
+              children [
+                SpotLight {
+                  attenuation 0 0 1
+                  beamWidth 0.7
+                  direction 1 0 0
+                }
+              ]
+              name "front camera"
+            }
+            Camera {
+              translation -0.35 0 0
+              rotation 0 1 0 2.61799
+              name "rear camera"
+            }
+          ]
+        }
+        Pose {
+          translation 0 0.3 -0.05
+          children [
+            Pose {
+              translation 0 0 0.1
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.12
+                    radius 0.05
+                  }
+                }
+              ]
+            }
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.5 0.5 0.5
+                }
+              }
+              geometry Box {
+                size 0.9 0.1 0.1
+              }
+            }
+          ]
+        }
+        Pose {
+          translation 0 -0.3 -0.05
+          children [
+            Pose {
+              translation 0 0 0.1
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.12
+                    radius 0.05
+                  }
+                }
+              ]
+            }
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0.5 0.5 0.5
+                }
+              }
+              geometry Box {
+                size 0.9 0.1 0.1
+              }
+            }
+          ]
+        }
         HingeJoint {
           device [
             RotationalMotor {
@@ -30,6 +144,7 @@ Robot {
             }
           ]
           endPoint Solid {
+            translation 0 0 0.1
             children [
               Pose {
                 translation 0.15 0 1.4
@@ -39,24 +154,8 @@ Robot {
                   }
                 ]
               }
-              Pose {
-                translation 0 0 0.96
-                children [
-                  Shape {
-                    appearance Appearance {
-                      material Material {
-                        diffuseColor 0.92549 0.92549 0
-                      }
-                    }
-                    geometry Cylinder {
-                      height 1
-                      radius 0.15
-                    }
-                  }
-                ]
-              }
               Solid {
-                translation 0 0 0.26
+                translation 0 0 0.16
                 children [
                   SliderJoint {
                     device [
@@ -64,7 +163,7 @@ Robot {
                       }
                     ]
                     endPoint Solid {
-                      translation -0.5 0 0
+                      translation 0.5 0 0.12
                       children [
                         DistanceSensor {
                         }
@@ -79,6 +178,7 @@ Robot {
                           }
                         }
                         Camera {
+                          rotation -1 0 0 0
                           name "lift camera"
                         }
                         Connector {
@@ -94,7 +194,7 @@ Robot {
                       }
                     }
                     geometry Box {
-                      size 0.8 0.8 0.4
+                      size 0.8 0.8 0.2
                     }
                   }
                 ]
@@ -105,19 +205,10 @@ Robot {
             boundingObject Group {
               children [
                 Pose {
-                  translation 0 0 0.96
-                  children [
-                    Cylinder {
-                      height 1
-                      radius 0.15
-                    }
-                  ]
-                }
-                Pose {
-                  translation 0 0 0.26
+                  translation 0 0 0.16
                   children [
                     Box {
-                      size 0.8 0.8 0.4
+                      size 0.8 0.8 0.2
                     }
                   ]
                 }
@@ -125,16 +216,6 @@ Robot {
             }
             physics Physics {
             }
-          }
-        }
-        Shape {
-          appearance Appearance {
-            material Material {
-              diffuseColor 0.5 0.5 0.5
-            }
-          }
-          geometry DEF BOX Box {
-            size 0.6 0.7 0.2
           }
         }
         Track {
@@ -328,7 +409,9 @@ Robot {
           }
           Pose {
             children [
-              USE BOX
+              DEF BOX Box {
+                size 0.6 0.7 0.2
+              }
             ]
           }
         ]
