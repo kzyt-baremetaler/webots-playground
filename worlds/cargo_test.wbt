@@ -10,6 +10,11 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
   contactProperties [
     ContactProperties {
+      material1 "trackMaterial"
+      material2 "floor"
+      softCFM 1e-05
+    }
+    ContactProperties {
       material1 "platform"
       material2 "crate"
     }
@@ -22,8 +27,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.154123889755337 -0.36979311580267044 0.9162417138024428 5.42938686344433
-  position -3.8645987592057423 4.232878771033846 3.085188208320056
+  orientation -0.1586878435480757 -0.16699679379979365 0.9731034062064785 4.736175223394651
+  position -0.8791174902077673 14.261392313506315 5.033525232819185
 }
 TexturedBackground {
 }
@@ -113,11 +118,168 @@ Robot {
   customData "broken"
 }
 Robot {
-  translation 0 0 0.06
+  translation -1 -1 0.07
   children [
     Solid {
       translation 0 0 0.1
       children [
+        Track {
+          translation 0 0.4 -0.05
+          children [
+            TrackWheel {
+              position 0.4 0
+              rotation 0.09590271408735705 -0.7038462296586877 0.7038488150348259 2.9503727323456874
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry DEF WHEEL Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+            TrackWheel {
+              position -0.4 0
+              rotation 0.09590271408735705 -0.7038462296586877 0.7038488150348259 2.9503727323456874
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+          ]
+          name "track_L"
+          contactMaterial "trackMaterial"
+          boundingObject Group {
+            children [
+              Pose {
+                translation 0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+              Pose {
+                translation -0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+            ]
+          }
+          physics Physics {
+          }
+          device [
+            LinearMotor {
+              name "leftMotor"
+              maxVelocity 3
+              maxForce 5
+            }
+          ]
+          animatedGeometry Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.3 0.3 0.3
+              }
+            }
+            geometry Box {
+              size 0.03 0.1 0.01
+            }
+          }
+          geometriesCount 50
+        }
+        Track {
+          translation 0 -0.4 -0.05
+          children [
+            TrackWheel {
+              position 0.4 0
+              rotation 0.09590271408735705 -0.7038462296586877 0.7038488150348259 2.9503727323456874
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry DEF WHEEL Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+            TrackWheel {
+              position -0.4 0
+              rotation 0.09590271408735705 -0.7038462296586877 0.7038488150348259 2.9503727323456874
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.1
+                    radius 0.1
+                  }
+                }
+              ]
+            }
+          ]
+          name "track_R"
+          contactMaterial "trackMaterial"
+          boundingObject Group {
+            children [
+              Box {
+                size 0.8 0.1 0.2
+              }
+              Pose {
+                translation 0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+              Pose {
+                translation -0.4 0 0
+                rotation 1 0 0 1.5708
+                children [
+                  USE WHEEL
+                ]
+              }
+            ]
+          }
+          physics Physics {
+          }
+          device [
+            LinearMotor {
+              name "rightMotor"
+              maxVelocity 3
+              maxForce 5
+            }
+          ]
+          animatedGeometry Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0.3 0.3 0.3
+              }
+            }
+            geometry Box {
+              size 0.03 0.1 0.01
+            }
+          }
+          geometriesCount 50
+        }
         Pose {
           translation 0 0 0.13
           children [
@@ -233,14 +395,17 @@ Robot {
           ]
         }
         HingeJoint {
+          jointParameters HingeJointParameters {
+            axis 0 0 1
+          }
           device [
             RotationalMotor {
               name "bodyMotor"
             }
           ]
           endPoint Solid {
-            translation 0 0 0.1
-            rotation 1 0 0 0
+            translation 5.534243654459201e-07 -7.654557542709217e-06 0.09401373207041137
+            rotation 0.06596937550533885 -0.9978216290716286 0.00019506992748508193 4.6928012867022945e-06
             children [
               Solid {
                 translation 0 0 0.16
@@ -268,6 +433,8 @@ Robot {
                         Camera {
                           rotation -1 0 0 0
                           name "lift camera"
+                          width 256
+                          height 256
                         }
                         Connector {
                         }
@@ -306,209 +473,16 @@ Robot {
             }
           }
         }
-        Track {
-          translation 0 -0.4 -0.05
-          children [
-            TrackWheel {
-              position 0.4 0
-              children [
-                Shape {
-                  appearance Appearance {
-                    material Material {
-                    }
-                  }
-                  geometry DEF WHEEL Cylinder {
-                    height 0.1
-                    radius 0.1
-                  }
-                }
-              ]
-            }
-            TrackWheel {
-              position -0.4 0
-              children [
-                Shape {
-                  appearance Appearance {
-                    material Material {
-                    }
-                  }
-                  geometry Cylinder {
-                    height 0.1
-                    radius 0.1
-                  }
-                }
-              ]
-            }
-          ]
-          name "track_R"
-          contactMaterial "trackMaterial"
-          boundingObject Group {
-            children [
-              Box {
-                size 0.8 0.1 0.2
-              }
-              Pose {
-                translation 0.4 0 0
-                rotation 1 0 0 1.5708
-                children [
-                  USE WHEEL
-                ]
-              }
-              Pose {
-                translation -0.4 0 0
-                rotation 1 0 0 1.5708
-                children [
-                  USE WHEEL
-                ]
-              }
-            ]
-          }
-          device [
-            LinearMotor {
-              name "rightMotor"
-              maxVelocity 3
-              maxForce 5
-            }
-          ]
-          animatedGeometry Shape {
-            appearance Appearance {
-              material Material {
-                diffuseColor 0.3 0.3 0.3
-              }
-            }
-            geometry Box {
-              size 0.03 0.1 0.01
-            }
-          }
-          geometriesCount 50
-        }
-        Track {
-          translation 0 0.4 -0.05
-          children [
-            TrackWheel {
-              position 0.4 0
-              children [
-                Shape {
-                  appearance Appearance {
-                    material Material {
-                    }
-                  }
-                  geometry DEF WHEEL Cylinder {
-                    height 0.1
-                    radius 0.1
-                  }
-                }
-              ]
-            }
-            TrackWheel {
-              position -0.4 0
-              children [
-                Shape {
-                  appearance Appearance {
-                    material Material {
-                    }
-                  }
-                  geometry Cylinder {
-                    height 0.1
-                    radius 0.1
-                  }
-                }
-              ]
-            }
-          ]
-          name "track_L"
-          contactMaterial "trackMaterial"
-          boundingObject Group {
-            children [
-              Pose {
-                translation 0.4 0 0
-                rotation 1 0 0 1.5708
-                children [
-                  USE WHEEL
-                ]
-              }
-              Pose {
-                translation -0.4 0 0
-                rotation 1 0 0 1.5708
-                children [
-                  USE WHEEL
-                ]
-              }
-            ]
-          }
-          device [
-            LinearMotor {
-              name "leftMotor"
-              maxVelocity 3
-              maxForce 5
-            }
-          ]
-          animatedGeometry Shape {
-            appearance Appearance {
-              material Material {
-                diffuseColor 0.3 0.3 0.3
-              }
-            }
-            geometry Box {
-              size 0.03 0.1 0.01
-            }
-          }
-          geometriesCount 50
-        }
       ]
       name "Shasi"
-      boundingObject Group {
-        children [
-          Pose {
-            translation 0 0.4 -0.05
-            children [
-              Box {
-                size 0.8 0.1 0.21
-              }
-            ]
-          }
-          Pose {
-            translation 0.4 -0.4 -0.05
-            rotation -1 -9.58979e-09 9.58975e-09 -1.5707953071795862
-            children [
-              USE WHEEL
-            ]
-          }
-          Pose {
-            translation -0.4 -0.4 -0.05
-            rotation -1 -9.58979e-09 9.58975e-09 -1.5707953071795862
-            children [
-              USE WHEEL
-            ]
-          }
-          Pose {
-            translation -0.4 0.4 -0.05
-            rotation 1 0 0 1.5708003061004252
-            children [
-              USE WHEEL
-            ]
-          }
-          Pose {
-            translation 0.4 0.4 -0.05
-            rotation 1 0 0 1.5708003061004252
-            children [
-              USE WHEEL
-            ]
-          }
-          Pose {
-            children [
-              DEF BOX Box {
-                size 0.6 0.7 0.2
-              }
-            ]
-          }
-        ]
-      }
       physics Physics {
       }
     }
   ]
   name "cargo"
+  physics Physics {
+  }
+  controller "cargo"
 }
 Robot {
   translation 3 -1 0.25
