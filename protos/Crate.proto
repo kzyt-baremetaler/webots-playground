@@ -1,0 +1,88 @@
+#VRML_SIM R2025a utf8
+# 荷運びシミュレーションの荷物
+# tags: nonDeterministic
+
+PROTO Crate [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 0 1 0
+  field SFString name "Crate"
+  field SFString controller "crate"
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    controller IS controller
+    children [
+      Solid {
+        translation 0.251 0.19 3.17853e-07
+        rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 2.0944
+        children [
+          Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "crate_R.png"
+                ]
+              }
+            }
+            geometry Plane {
+              size 0.1 0.1
+            }
+          }
+        ]
+        name "Marker Right"
+        model "#100"
+        recognitionColors [
+          1 0 0
+        ]
+      }
+      Solid {
+        translation 0.251 -0.19 0
+        rotation 0.5773489358556708 0.5773509358554485 0.5773509358554485 2.0944
+        children [
+          Shape {
+            appearance Appearance {
+              texture ImageTexture {
+                url [
+                  "crate_L.png"
+                ]
+              }
+            }
+            geometry Plane {
+              size 0.1 0.1
+            }
+          }
+        ]
+        name "Marker Left"
+        model "#101"
+        recognitionColors [
+          1 0 0
+        ]
+      }
+      Connector {
+        translation 0.25 0 0
+      }
+      Accelerometer {
+      }
+      Solid {
+        children [
+          Shape {
+            appearance Cardboard {
+            }
+            geometry DEF BOX Box {
+              size 0.5 0.5 0.5
+            }
+          }
+        ]
+      }
+    ]
+    contactMaterial "crate"
+    boundingObject USE BOX
+    physics Physics {
+      density 100
+    }
+    customData "broken"
+  }
+}
