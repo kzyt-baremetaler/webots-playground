@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
       
       // 重力加速度(9.81)で割り、G単位に変換
       double g_force = accel_mag / 9.81;
-
+      printf("G %f\n",g_force);
       if (g_force > THRESHOLD_G) {
         printf("【警告】荷物が破損しました！ 衝撃: %f G\n", g_force);
         is_broken = true;

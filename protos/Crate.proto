@@ -63,6 +63,8 @@ PROTO Crate [
       }
       Connector {
         translation 0.25 0 0
+        model "crate"
+        type "passive"
       }
       Accelerometer {
       }
@@ -81,7 +83,7 @@ PROTO Crate [
     contactMaterial "crate"
     boundingObject USE BOX
     physics Physics {
-      density 100
+      density 10
     }
     customData "broken"
   }

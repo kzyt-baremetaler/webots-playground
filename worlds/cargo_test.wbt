@@ -27,8 +27,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.09003687462950183 -0.07298527624193056 0.9932605452039464 4.497373444475301
-  position 2.6929340999633506 4.175972609142848 1.164866335513448
+  orientation -0.08989700290513429 0.09142403953811558 0.9917460228623088 1.5622722589993914
+  position 1.6656242543767001 -10.061325559227852 2.4562485148930198
 }
 TexturedBackground {
 }
@@ -1564,7 +1564,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.7346882811628824 0.47970378307384404 -0.4797055451280211 1.8743374118501201
+              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
               children [
                 Shape {
                   appearance Appearance {
@@ -1580,7 +1580,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.7346882811628824 0.47970378307384404 -0.4797055451280211 1.8743374118501201
+              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
               children [
                 Shape {
                   appearance Appearance {
@@ -1641,7 +1641,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.7346882811628824 0.47970378307384404 -0.4797055451280211 1.8743374118501201
+              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
               children [
                 Shape {
                   appearance Appearance {
@@ -1657,7 +1657,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.7346882811628824 0.47970378307384404 -0.4797055451280211 1.8743374118501201
+              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
               children [
                 Shape {
                   appearance Appearance {
@@ -1853,14 +1853,26 @@ Robot {
                 translation 0 0 0.16
                 children [
                   SliderJoint {
+                    jointParameters JointParameters {
+                      staticFriction 1
+                    }
                     device [
                       LinearMotor {
+                        name "lift motor"
+                        maxForce 100
                       }
                     ]
                     endPoint Solid {
-                      translation 0.5 0 0.12
+                      translation 0.5499999999999999 0 0.12
                       children [
                         DistanceSensor {
+                          lookupTable [
+                            0 1000 0
+                            0.1 1000 0.1
+                            0.4 20 0.1
+                            0.5 10 0
+                          ]
+                          type "infra-red"
                         }
                         Shape {
                           appearance Appearance {
@@ -1868,7 +1880,7 @@ Robot {
                               diffuseColor 0.878431 0.878431 0
                             }
                           }
-                          geometry Box {
+                          geometry DEF BOX Box {
                             size 0.02 0.5 0.5
                           }
                         }
@@ -1881,9 +1893,17 @@ Robot {
                           }
                         }
                         Connector {
+                          translation 0.01 0 0
+                          model "crate"
+                          locked TRUE
+                          type "active"
                         }
                       ]
                       name "lift"
+                      boundingObject USE BOX
+                      physics Physics {
+                        mass 0.01
+                      }
                     }
                   }
                   Shape {
@@ -1892,12 +1912,16 @@ Robot {
                         diffuseColor 0.92549 0.92549 0
                       }
                     }
-                    geometry Box {
+                    geometry DEF UpperBody Box {
                       size 0.8 0.8 0.2
                     }
                   }
                 ]
                 name "upper base"
+                boundingObject USE UpperBody
+                physics Physics {
+                  density 100
+                }
               }
             ]
             name "upperBody"
