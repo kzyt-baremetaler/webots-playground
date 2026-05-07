@@ -65,6 +65,7 @@ PROTO Crate [
         translation 0.25 0 0
         model "crate"
         type "passive"
+        distanceTolerance 0.1
       }
       Accelerometer {
       }
@@ -85,6 +86,5 @@ PROTO Crate [
     physics Physics {
       density 10
     }
-    customData "broken"
   }
 }

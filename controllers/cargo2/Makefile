@@ -65,7 +65,7 @@
 ###
 ###-----------------------------------------------------------------------------
 ### Do not modify: this includes Webots global Makefile.include
-CXX_SOURCES = DetectedMarker.cpp cargo2.cpp
+CXX_SOURCES = CargoRobot.cpp DetectedMarker.cpp cargo2.cpp
 null :=
 space := $(null) $(null)
 WEBOTS_HOME_PATH?=$(subst $(space),\ ,$(strip $(subst \,/,$(WEBOTS_HOME))))

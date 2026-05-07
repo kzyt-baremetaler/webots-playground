@@ -12,6 +12,13 @@ WorldInfo {
     ContactProperties {
       material1 "trackMaterial"
       material2 "floor"
+      coulombFriction [
+        0.7
+      ]
+      bounce 0.7
+      forceDependentSlip [
+        0.01
+      ]
       softCFM 1e-05
     }
     ContactProperties {
@@ -27,8 +34,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.08989700290513429 0.09142403953811558 0.9917460228623088 1.5622722589993914
-  position 1.6656242543767001 -10.061325559227852 2.4562485148930198
+  orientation 0.11780110593856026 0.19518311758639142 -0.9736664983704169 1.1097719443737475
+  position -1.7617726127082074 2.8039133702789116 2.1475658094835284
 }
 TexturedBackground {
 }
@@ -1554,7 +1561,8 @@ Group {
   ]
 }
 Robot {
-  translation -1 -1 0.07
+  translation -1 -2.97 0.07
+  rotation 0 0 1 1.0472
   children [
     Solid {
       translation 0 0 0.1
@@ -1564,7 +1572,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
+              rotation 0.7171351944205828 0.49280590945350355 -0.49280771963419784 1.8973286083318346
               children [
                 Shape {
                   appearance Appearance {
@@ -1580,7 +1588,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
+              rotation 0.7171351944205828 0.49280590945350355 -0.49280771963419784 1.8973286083318346
               children [
                 Shape {
                   appearance Appearance {
@@ -1641,7 +1649,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
+              rotation 0.4692942667114689 0.6244037263677947 -0.6244060199339506 2.2640301054053227
               children [
                 Shape {
                   appearance Appearance {
@@ -1657,7 +1665,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.9703215081756222 0.17099116347961918 -0.17099179156811023 1.6009232522820196
+              rotation 0.4692942667114689 0.6244037263677947 -0.6244060199339506 2.2640301054053227
               children [
                 Shape {
                   appearance Appearance {
@@ -1841,6 +1849,9 @@ Robot {
             axis 0 0 1
           }
           device [
+            PositionSensor {
+              name "body position"
+            }
             RotationalMotor {
               name "bodyMotor"
             }
@@ -1897,6 +1908,7 @@ Robot {
                           model "crate"
                           locked TRUE
                           type "active"
+                          distanceTolerance 0.1
                         }
                       ]
                       name "lift"
