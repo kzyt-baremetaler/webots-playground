@@ -101,7 +101,12 @@ static int ApproachState(Robot *robot) {
   static auto cargo_robot = CargoRobot(robot);
   static auto lift_camera = robot->getCamera("lift camera");
   auto crate_detectedMarkers = get_crate_position(lift_camera);
+  double crate_x, crate_y;
 
+  if (!crate_detectedMarkers.empty()) {
+    crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
+    crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2 - 0.05;
+  }
   switch (state) {
   case 0: // 左を探す
     printf("Crate not detected. Searching left...\n");
@@ -138,8 +143,6 @@ static int ApproachState(Robot *robot) {
     if (crate_detectedMarkers.empty()) {
       state = 0;
     } else {
-      double crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
-      double crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2;
       double angle_to_crate = atan2(crate_y, crate_x);
       double angle_body = cargo_robot.BodyAngle();
       printf("Angle to crate %f\n", angle_to_crate);
@@ -157,15 +160,11 @@ static int ApproachState(Robot *robot) {
       search_range = SEARCH_RANGE_INIT;
     } else {
       printf("車両の方向決め\n");
-      double crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
-      double crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2;
       auto vec_x = crate_detectedMarkers[1].pos_x - crate_detectedMarkers[0].pos_x;
       auto vec_y = crate_detectedMarkers[1].pos_y - crate_detectedMarkers[0].pos_y;
       printf("vec:%f %f\n",vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y), vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y) );
       auto target_x = crate_x - 2 * vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y);
       auto target_y = crate_y + 2 * vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y);
-      //double target_x = crate_x + 2*crate_detectedMarkers[0].rotation[0][0]; // クレートの中心から前方1mの位置を計算
-      //double target_y = crate_y - 2*crate_detectedMarkers[0].rotation[1][0]; // クレートの中心から前方1mの位置を計算
       double angle_to_target = atan2(target_y, target_x);
       double angle_to_crate = atan2(crate_y, crate_x);
       double angle_body = -cargo_robot.BodyAngle();
@@ -190,22 +189,15 @@ static int ApproachState(Robot *robot) {
     } else {
       printf("まっすぐ進んで、マーカーを補足する\n");      
       // クレートの位置から目標座標を取得する。クレートの前方1mの位置を目標とする。
-      double crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
-      double crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2;
       auto vec_x = crate_detectedMarkers[1].pos_x - crate_detectedMarkers[0].pos_x;
       auto vec_y = crate_detectedMarkers[1].pos_y - crate_detectedMarkers[0].pos_y;
       printf("vec:%f %f\n",vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y), vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y) );
-      auto target_x = crate_x - 1 * vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y);
-      auto target_y = crate_y + 1 * vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y);
-      //double target_x = crate_x + 2*crate_detectedMarkers[0].rotation[0][0]; // クレートの中心から前方1mの位置を計算
-      //double target_y = crate_y - 2*crate_detectedMarkers[0].rotation[1][0]; // クレートの中心から前方1mの位置を計算
-      //double target_z = crate_z + 2*crate_detectedMarkers[0].rotation[2][0]; // クレートの中心から前方1mの位置を計算
+      auto target_x = crate_x - 2 * vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y);
+      auto target_y = crate_y + 2 * vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y);
       double angle_to_target = atan2(target_y, target_x);
       double angle_to_crate = atan2(crate_y, crate_x);
       double angle_body = -cargo_robot.BodyAngle();
-      //double angle_crate = atan2(crate_detectedMarkers[0].rotation[1][0], crate_detectedMarkers[0].rotation[0][0])
       auto turn_angle = angle_to_target - angle_body;
-      //auto center_x = (crate_detectedMarkers[0].x + crate_detectedMarkers[1].x)/2;
       static auto pre_angle_to_target = angle_to_target;
       static double dir = 1;
       if (pre_angle_to_target * angle_to_target < 0) {
@@ -218,17 +210,8 @@ static int ApproachState(Robot *robot) {
       printf("distance %f m\n", distance_to_target(target_x, target_y));
 
       // 目標位置にいる
-      if (angle_isqual(angle_to_target, 0.0, 0.001)) {
-        // カメラと、ボディ角が一致している。つまり目標が正面にある
-        if (angle_isqual(turn_angle, 0.0)) {
-          // このステージを終了する
-          cargo_robot.StopMove();
-          cargo_robot.TurnBody(0);
-          return 1;
-        }
-
-        // 目標の方法へ旋回
-        cargo_robot.TurnMove(turn_angle/2, dir * 0.05);
+      if (angle_isqual(angle_to_target, 0.0, 0.0005)) {
+        state = 5;
       }
       // 目標位置ではない
       else {
@@ -238,8 +221,8 @@ static int ApproachState(Robot *robot) {
         }
 
         // 目標の方向へ旋回しつつ前進
-        //cargo_robot.TurnMove(turn_angle/10.0, v);
-        cargo_robot.TurnMove(0.0, dir * v);
+        cargo_robot.TurnMove(turn_angle/10.0, v);
+        //cargo_robot.TurnMove(0.0, dir * v);
 
         // カメラを荷物へ向ける
         cargo_robot.TurnBody(cargo_robot.BodyAngle()+angle_to_crate, 2.0);
@@ -247,7 +230,55 @@ static int ApproachState(Robot *robot) {
       pre_angle_to_target = angle_to_target;
     }
     break;
-  }
+  case 5:
+    if (crate_detectedMarkers.empty()) {
+      state = 0;
+      search_range = SEARCH_RANGE_INIT;
+    } else {
+      printf("車体を荷物に正対させる\n");      
+      // クレートの位置から目標座標を取得する。クレートの前方1mの位置を目標とする。
+      auto vec_x = crate_detectedMarkers[1].pos_x - crate_detectedMarkers[0].pos_x;
+      auto vec_y = crate_detectedMarkers[1].pos_y - crate_detectedMarkers[0].pos_y;
+      printf("vec:%f %f\n",vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y), vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y) );
+      auto target_x = crate_x - 1 * vec_y / std::sqrt(vec_x*vec_x + vec_y*vec_y);
+      auto target_y = crate_y + 1 * vec_x / std::sqrt(vec_x*vec_x + vec_y*vec_y);
+      double angle_to_target = atan2(target_y, target_x);
+      double angle_to_crate = atan2(crate_y, crate_x);
+      double angle_body = -cargo_robot.BodyAngle();
+      auto turn_angle = angle_to_target - angle_body;
+      static auto pre_angle_to_target = angle_to_target;
+      static double dir = 1;
+      if (pre_angle_to_target * angle_to_target < 0) {
+        dir *= -1;
+      }
+      printf("Angle body: %f\n", angle_body);
+      printf("Crate position: (%f, %f), Angle to crate: %f\n", crate_x, crate_y, angle_to_crate);
+      printf("Target position: (%f, %f), Angle to target: %f\n", target_x, target_y, angle_to_target);
+      printf("Turn angle:%f\n", turn_angle);
+      printf("distance %f m\n", distance_to_target(target_x, target_y));
+
+      // 目標位置にいる
+      if (angle_isqual(turn_angle, 0.0, 0.05)) {
+        // カメラと、ボディ角が一致している。つまり目標が正面にある
+        if (angle_isqual(turn_angle, 0.0)) {
+          // このステージを終了する
+          cargo_robot.StopMove();
+          return 1;
+        }
+        cargo_robot.TurnBody(0);
+
+        // 目標の方法へ旋回
+        cargo_robot.TurnMove(turn_angle/10, dir * 0.05);
+      }
+      // 目標位置ではない
+      else {
+        // 目標の方法へ旋回
+        cargo_robot.TurnMove(turn_angle/20, dir * 0.05);
+        // カメラを荷物へ向ける
+        cargo_robot.TurnBody(cargo_robot.BodyAngle()+angle_to_crate, 3.0);
+      }
+      pre_angle_to_target = angle_to_target;
+    }  }
   return 0; // Still in progress
 }
 
