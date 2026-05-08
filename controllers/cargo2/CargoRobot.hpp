@@ -4,6 +4,7 @@
 #include <webots/Motor.hpp>
 #include <webots/PositionSensor.hpp>
 #include <webots/Camera.hpp>
+#include <webots/DistanceSensor.hpp>
 
 using namespace webots;
 
@@ -26,6 +27,10 @@ public:
     inline double BodyAngle() const { return bodyPosition->getValue(); }
     bool DetectHorizontalLineFromBottom(HorizontalLine *out);
     bool DetectVerticalLineFromBottom(VerticalLine *out);
+    bool DetectHorizontalLineFromFront(HorizontalLine *out);
+    bool DetectVerticalLineFromFront(VerticalLine *out);
+    double DistanceSensor();
+    void DistanceSensor(bool sw);
 private:
     Robot *robot;
     Motor *rightMotor;
@@ -33,6 +38,7 @@ private:
     Motor *liftMotor;
     Motor *bodyMotor;
     PositionSensor *bodyPosition;
+    webots::DistanceSensor *distanceSensor;
     Camera *frontCamera;
     Camera *bottomCamera;
     Camera *rearCamera;

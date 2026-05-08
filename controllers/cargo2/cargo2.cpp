@@ -151,7 +151,7 @@ static int ApproachState(Robot *robot) {
       double angle_body = cargo_robot.BodyAngle();
       printf("Angle to crate %f\n", angle_to_crate);
       cargo_robot.TurnBody(angle_body + angle_to_crate, 2.0);
-      if (abs(angle_to_crate) < 0.0001) {
+      if (angle_isqual(angle_to_crate, 0.0, 0.01)) {
         state = 3;
         return 0;
       }
@@ -202,7 +202,7 @@ static int ApproachState(Robot *robot) {
         printf("横線発見\n");
         printf("offset %f  angle %f\n", h_line.offset, h_line.angle);
         // 鈍角に侵入した
-        if (abs(h_line.offset) < 0.01) {
+        if (abs(h_line.offset) < 0.05) {
           printf("向き合わせ\n");
           // 到達したから軸合わせ
           if (angle_to_crate + cargo_robot.BodyAngle() < 0) {
@@ -229,7 +229,7 @@ static int ApproachState(Robot *robot) {
         printf("縦線発見\n");
         printf("offset %f  angle %f\n", v_line.offset, v_line.angle);
         // 鋭角に侵入してした。
-        if (abs(v_line.offset) < 0.01) {
+        if (abs(v_line.offset) < 0.05) {
           printf("向き合わせ\n");
           // 到達した
           // 到達したから軸合わせ
@@ -273,43 +273,86 @@ static int PickupState(Robot *robot) {
   static auto lift_motor = robot->getMotor("lift motor");
   static auto connector = robot->getConnector("connector");
   static int timeStep = (int)robot->getBasicTimeStep();
+  double crate_x, crate_y;
 
   auto crate_detectedMarkers = get_crate_position(lift_camera);
   auto distance = front_ds->getValue();
-  double crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
-  double crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2;
+  if (crate_detectedMarkers.size() >= 2) {
+    crate_x = (crate_detectedMarkers[0].pos_x + crate_detectedMarkers[1].pos_x) / 2;
+    crate_y = (crate_detectedMarkers[0].pos_y + crate_detectedMarkers[1].pos_y) / 2;
+  }
 
   switch (state) {
-    case 0:
-      printf("Searching for the crate using the lift camera...\n");
-      // Move forward until the crate is detected by the lift camera.
-      if (!crate_detectedMarkers.empty()) {
-        printf("detect!\n");
-        state = 1;
-      }
-      break;
-    case 1:
-      printf("Crate detected. Adjusting the lift to prepare for grasping...\n");
-      // Adjust the lift to prepare for grasping the crate.
+    case 0: // リフトの高さをクレートの高さに合わせて持ち上げる
+      printf("PickupState: state0\n");
       if (crate_detectedMarkers[0].y > lift_camera->getHeight() / 2) {
-        // If the crate is below the center of the camera view, move the lift down.
-        lift_motor->setVelocity(-0.5);
+        // ちょっと下げる
+        lift_motor->setVelocity(0.5);
         lift_motor->setPosition(lift_motor->getTargetPosition() - 0.01); // Move down by a small increment
       } else if (crate_detectedMarkers[0].y < lift_camera->getHeight() / 2) {
-        // If the crate is above the center of the camera view, move the lift up.
+        // ちょっと上げる
         lift_motor->setVelocity(0.5);
         lift_motor->setPosition(lift_motor->getTargetPosition() + 0.01); // Move up by a small increment
       } else {
-        // If the crate is centered, stop the lift and transition to the next state.
+        // OK. 一致
         lift_motor->setVelocity(0.0);
+        cargo_robot.TurnMove(0.0, 0.2);
+        cargo_robot.DistanceSensor(true);
+        state = 1;
+      }
+      // リフトを正確に荷物へ向ける
+      if ((crate_detectedMarkers[0].x + crate_detectedMarkers[1].x) / 2 > lift_camera->getWidth() /2) {
+        cargo_robot.TurnBody(cargo_robot.BodyAngle() - 0.1);
+      } else if ((crate_detectedMarkers[0].x + crate_detectedMarkers[1].x) / 2 < lift_camera->getWidth() /2) {
+        cargo_robot.TurnBody(cargo_robot.BodyAngle() + 0.1);
+      } else {
+        cargo_robot.TurnBody(cargo_robot.BodyAngle());
+      }
+      break;
+    case 1: // ラインをセンターに維持しながら前進する
+      printf("PickupState: state1\n");
+      if (cargo_robot.DistanceSensor() > 500) {
+        connector->enablePresence(timeStep);
+        lift_camera->disable();
         state = 2;
+      } else if (cargo_robot.DistanceSensor() > 300) {
+        cargo_robot.TurnBody(cargo_robot.BodyAngle(), 0);
+        cargo_robot.TurnMove(0, 0.2);
+      } else {
+        VerticalLine v_line;
+        if (cargo_robot.DetectVerticalLineFromFront(&v_line)) {
+          double t;
+          if (v_line.offset < -0.1) {
+            t = -0.02;
+          } else if (v_line.offset > 0.1) {
+            t = 0.02;
+          } else if (v_line.angle > 0.01) {
+            t = -0.02;
+          } else if (v_line.angle < -0.01) {
+            t = 0.02;
+          }
+          cargo_robot.TurnMove(t, 0.5);
+          // リフトを正確に荷物へ向ける
+          if ((crate_detectedMarkers[0].x + crate_detectedMarkers[1].x) / 2 > lift_camera->getWidth() /2) {
+            cargo_robot.TurnBody(cargo_robot.BodyAngle() - 0.1);
+          } else if ((crate_detectedMarkers[0].x + crate_detectedMarkers[1].x) / 2 < lift_camera->getWidth() /2) {
+            cargo_robot.TurnBody(cargo_robot.BodyAngle() + 0.1);
+          } else {
+            cargo_robot.TurnBody(cargo_robot.BodyAngle());
+          }
+        } else {
+          printf("Lost?\n");
+          cargo_robot.StopMove();
+          return 1;
+        }
       }
       break;
     case 2:
+      printf("PickupState: state2\n");
       printf("Lift adjusted. Aproaching the crate...\n");
       printf("Distance to the crate: %f\n", distance);
       if (distance > 800) {
-        cargo_robot.TurnMove(0, 0.01);
+        cargo_robot.TurnMove(0, 0.05);
         connector->enablePresence(timeStep);
         lift_camera->disable();
         state = 3;
@@ -340,8 +383,8 @@ static int PickupState(Robot *robot) {
         while (connector->isLocked() == false) {
           robot->step(timeStep);
         }
-        lift_motor->setVelocity(0.05);
-        lift_motor->setPosition(lift_motor->getTargetPosition() + 0.5); // Lift the crate up
+        lift_motor->setVelocity(0.1);
+        lift_motor->setPosition(lift_motor->getTargetPosition() + 1); // Lift the crate up
         // wait for a few steps to ensure the crate is lifted before moving
         for (auto i = 0; i < 5; i++) {
           robot->step(timeStep);

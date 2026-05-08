@@ -10,6 +10,7 @@ CargoRobot::CargoRobot(Robot *r)
     liftMotor = robot->getMotor("lift motor");
     bodyMotor = robot->getMotor("bodyMotor");
     bodyPosition = robot->getPositionSensor("body position");
+    distanceSensor = robot->getDistanceSensor("distance sensor");
     frontCamera = robot->getCamera("front camera");
     bottomCamera = robot->getCamera("bottom camera");
     rearCamera = robot->getCamera("rear camera");
@@ -120,6 +121,10 @@ bool CargoRobot::DetectHorizontalLineFromBottom(HorizontalLine *out)
 {
     return DetectHorizontalLine(bottomCamera, out);
 }
+bool CargoRobot::DetectHorizontalLineFromFront(HorizontalLine *out)
+{
+    return DetectHorizontalLine(frontCamera, out);
+}
 
 /**
  * @brief 輝度のy方向のモーメントを計算する
@@ -201,6 +206,11 @@ bool CargoRobot::DetectVerticalLineFromBottom(VerticalLine *out)
     return DetectVerticalLine(bottomCamera, out);
 }
 
+bool CargoRobot::DetectVerticalLineFromFront(VerticalLine *out)
+{
+    return DetectVerticalLine(frontCamera, out);
+}
+
 /**
  * @brief 指定距離を移動する
  * 
@@ -215,3 +225,18 @@ void CargoRobot::PositionMove(double distance, double speed)
     leftMotor->setPosition(distance/0.1);
     rightMotor->setPosition(distance/0.1);
 }
+
+double CargoRobot::DistanceSensor()
+{
+    printf("distance %f\n", distanceSensor->getValue());
+    return distanceSensor->getValue();
+}
+
+void CargoRobot::DistanceSensor(bool sw)
+{
+    if (sw)
+        distanceSensor->enable(robot->getBasicTimeStep());
+    else
+        distanceSensor->disable();
+}
+

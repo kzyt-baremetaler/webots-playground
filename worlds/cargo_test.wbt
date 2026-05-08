@@ -34,8 +34,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.11780110593856026 0.19518311758639142 -0.9736664983704169 1.1097719443737475
-  position -1.7617726127082074 2.8039133702789116 2.1475658094835284
+  orientation 0.3384792150874368 0.6953527942159802 -0.6339686999606696 1.309608080546182
+  position -4.8329623624221885 2.5167883717866344 9.696610502794353
 }
 TexturedBackground {
 }
@@ -1572,7 +1572,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.7171351944205828 0.49280590945350355 -0.49280771963419784 1.8973286083318346
+              rotation 0.9998900661179241 0.010484628497980398 -0.010484667088322524 1.57090993993941
               children [
                 Shape {
                   appearance Appearance {
@@ -1588,7 +1588,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.7171351944205828 0.49280590945350355 -0.49280771963419784 1.8973286083318346
+              rotation 0.9998900661179241 0.010484628497980398 -0.010484667088322524 1.57090993993941
               children [
                 Shape {
                   appearance Appearance {
@@ -1649,7 +1649,7 @@ Robot {
           children [
             TrackWheel {
               position 0.4 0
-              rotation 0.4692942667114689 0.6244037263677947 -0.6244060199339506 2.2640301054053227
+              rotation 0.20682035613090802 0.6918171088532692 -0.691819650044568 2.7337042893478474
               children [
                 Shape {
                   appearance Appearance {
@@ -1665,7 +1665,7 @@ Robot {
             }
             TrackWheel {
               position -0.4 0
-              rotation 0.4692942667114689 0.6244037263677947 -0.6244060199339506 2.2640301054053227
+              rotation 0.20682035613090802 0.6918171088532692 -0.691819650044568 2.7337042893478474
               children [
                 Shape {
                   appearance Appearance {
@@ -1877,13 +1877,15 @@ Robot {
                       translation 0.5499999999999999 0 0.12
                       children [
                         DistanceSensor {
+                          translation 0.02 0 0
                           lookupTable [
                             0 1000 0
                             0.1 1000 0.1
                             0.4 20 0.1
                             0.5 10 0
                           ]
-                          type "infra-red"
+                          type "laser"
+                          aperture 0.01
                         }
                         Shape {
                           appearance Appearance {
@@ -1908,7 +1910,6 @@ Robot {
                           model "crate"
                           locked TRUE
                           type "active"
-                          distanceTolerance 0.1
                         }
                       ]
                       name "lift"

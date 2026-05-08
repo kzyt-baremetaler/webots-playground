@@ -65,7 +65,7 @@ PROTO Crate [
         translation 0.25 0 0
         model "crate"
         type "passive"
-        distanceTolerance 0.1
+        distanceTolerance 0.01
       }
       Accelerometer {
       }
