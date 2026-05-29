@@ -1,7 +1,7 @@
 #VRML_SIM R2025a utf8
 # 荷運びシミュレーションの荷物
 # tags: nonDeterministic
-
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Cardboard.proto"
 PROTO Crate [
   field SFVec3f translation 0 0 0
   field SFRotation rotation 0 0 1 0
