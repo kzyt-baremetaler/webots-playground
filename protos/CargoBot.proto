@@ -81,6 +81,9 @@ PROTO CargoBot [
                 maxVelocity 3
                 maxForce 5
               }
+              PositionSensor {
+                name "leftMotor position"
+              }
             ]
             animatedGeometry Shape {
               appearance Appearance {
@@ -160,6 +163,9 @@ PROTO CargoBot [
                 name "rightMotor"
                 maxVelocity 3
                 maxForce 5
+              }
+              PositionSensor {
+                name "rightMotor position"
               }
             ]
             animatedGeometry Shape {
