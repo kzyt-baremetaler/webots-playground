@@ -56,13 +56,13 @@ static int get_offset(double *offset, int pos) {
 /**
  * @brief 旋回
  * 
- * @param direction 車体の向きを0として、時計回りを正とする角度(radian)
+ * @param direction 車体の向きを0として、反時計回りを正とする角度(radian)
  */
 void turn(double direction)
 {
     double distance = TREAD/2 * direction / TRACK_TURN_EFFICIENCY;
-	rightTarget = wb_position_sensor_get_value(rightPosition) - distance;
-	leftTarget = wb_position_sensor_get_value(leftPosition) + distance;
+	rightTarget = wb_position_sensor_get_value(rightPosition) + distance;
+	leftTarget = wb_position_sensor_get_value(leftPosition) - distance;
     // 速度はそのまま指定すれば3秒で旋回完了するはず。
     double velocity = fabs(distance) / 3;
 	wb_motor_set_position(rightMotor, rightTarget);

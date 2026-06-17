@@ -14,6 +14,8 @@
 #include <webots/robot.h>
 #include <webots/motor.h>
 #include <webots/position_sensor.h>
+#include <webots/camera.h>
+#include <webots/gyro.h>
 
 /*
  * You may want to add macros here.
@@ -24,6 +26,8 @@ WbDeviceTag rightMotor;
 WbDeviceTag leftMotor;
 WbDeviceTag rightPosition;
 WbDeviceTag leftPosition;
+WbDeviceTag bottomCamera;
+WbDeviceTag gyro;
 
 extern void move_straight(double distance, double velocity);
 extern int move_straight_isdone(double delta);
@@ -50,6 +54,13 @@ int main(int argc, char **argv) {
 	leftPosition = wb_robot_get_device("leftMotor position");
 	wb_position_sensor_enable(rightPosition, time_step);
 	wb_position_sensor_enable(leftPosition, time_step);
+	/* カメラデバイスを取得 */
+	bottomCamera = wb_robot_get_device("bottom camera");
+	wb_camera_enable(bottomCamera, wb_robot_get_basic_time_step());
+
+	gyro = wb_robot_get_device("gyro");
+	wb_gyro_enable(gyro, time_step);
+
 
 	// ここで一度ステップを踏む。これがないと、position_sensorが計測してない。
 	if (wb_robot_step(time_step) == -1)	return 0;

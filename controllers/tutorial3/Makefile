@@ -66,7 +66,7 @@
 ###-----------------------------------------------------------------------------
 
 ### Do not modify: this includes Webots global Makefile.include
-C_SOURCES = tutorial1.c move_strate.c turn.c
+C_SOURCES = tutorial3.c move_strate.c turn.c
 null :=
 space := $(null) $(null)
 WEBOTS_HOME_PATH?=$(subst $(space),\ ,$(strip $(subst \,/,$(WEBOTS_HOME))))

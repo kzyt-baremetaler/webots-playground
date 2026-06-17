@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 	/* 方向転換 北へ
 	 * つまり、反時計回りに 0.5π radian
 	 */
-	turn(-M_PI/2);
+	turn(M_PI/2);
 	while (!turn_isdone(0.01)) {
 		if (wb_robot_step(time_step) == -1)	return 0;
 	}
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
 	 * 方向転換 西へ
 	 * つまり、反時計回りに 0.5π radian
 	 */	
-	turn(-M_PI/2);
+	turn(M_PI/2);
 	while (!turn_isdone(0.01)) {
 		if (wb_robot_step(time_step) == -1)	return 0;
 	}
@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
 	 * 方向転換 南へ
 	 * つまり、反時計回りに 0.5π radian
 	 */	
-	turn(-M_PI/2);
+	turn(M_PI/2);
 	while (!turn_isdone(0.01)) {
 		if (wb_robot_step(time_step) == -1)	return 0;
 	}
