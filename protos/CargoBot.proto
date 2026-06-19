@@ -17,6 +17,12 @@ PROTO CargoBot [
       Solid {
         translation 0 0 0.1
         children [
+          Accelerometer {
+            name "accelerometer"
+          }
+          GPS {
+            name "gps"
+          }
           Gyro {
             name "gyro"
           }

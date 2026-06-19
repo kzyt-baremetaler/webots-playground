@@ -27,7 +27,7 @@ static double target_angle = 0.0;
 /**
  * @brief 旋回
  * 
- * @param direction 車体の向きを0として、時計回りを正とする角度(radian)
+ * @param direction 車体の向きを0として、反時計回りを正とする角度(radian)
  */
 void turn(double direction)
 {
