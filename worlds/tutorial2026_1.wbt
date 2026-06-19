@@ -7,6 +7,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "../protos/CargoBot.proto"
 
 WorldInfo {
+  gpsCoordinateSystem "WGS84"
   contactProperties [
     ContactProperties {
       material1 "trackMaterial"

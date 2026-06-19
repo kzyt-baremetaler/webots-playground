@@ -10,6 +10,7 @@ EXTERNPROTO "../protos/CargoBot.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/CorrugatedMetal.proto"
 
 WorldInfo {
+  gpsCoordinateSystem "WGS84"
   contactProperties [
     ContactProperties {
       material1 "trackMaterial"
