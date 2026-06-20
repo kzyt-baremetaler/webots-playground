@@ -36,7 +36,7 @@ void turn(double direction)
 	printf("angle %f direction %f\n", angle, direction);
     double distance = TREAD/2 * direction / TRACK_TURN_EFFICIENCY;
     // 速度はそのまま指定すれば3秒で旋回完了するはず。
-    double velocity = fabs(distance) / 3;
+    double velocity = distance / 3;
 	wb_motor_set_velocity(rightMotor, 0);
 	wb_motor_set_velocity(leftMotor, 0);
 	wb_motor_set_position(rightMotor, INFINITY);

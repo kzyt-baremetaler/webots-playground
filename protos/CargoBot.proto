@@ -62,7 +62,7 @@ PROTO CargoBot [
                 ]
               }
             ]
-            name "track_R"
+            name "track_L"
             contactMaterial "trackMaterial"
             boundingObject Group {
               children [
@@ -86,12 +86,12 @@ PROTO CargoBot [
             }
             device [
               LinearMotor {
-                name "rightMotor"
+                name "leftMotor"
                 maxVelocity 3
                 maxForce 5
               }
               PositionSensor {
-                name "rightMotor position"
+                name "leftMotor position"
               }
             ]
             animatedGeometry Shape {
@@ -142,7 +142,7 @@ PROTO CargoBot [
                 ]
               }
             ]
-            name "track_L"
+            name "track_R"
             contactMaterial "trackMaterial"
             boundingObject Group {
               children [
@@ -169,12 +169,12 @@ PROTO CargoBot [
             }
             device [
               LinearMotor {
-                name "leftMotor"
+                name "rightMotor"
                 maxVelocity 3
                 maxForce 5
               }
               PositionSensor {
-                name "leftMotor position"
+                name "rightMotor position"
               }
             ]
             animatedGeometry Shape {
