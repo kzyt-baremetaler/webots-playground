@@ -2,3 +2,9 @@ worlds/.*.wbproj
 controllers/*/build
 controllers/*/*.exe
 worlds/.*.jpg
+controllers/cargo2/cargo2
+controllers/tutorial1/tutorial1
+controllers/tutorial2/tutorial2
+controllers/tutorial3/tutorial3
+controllers/crate/crate
+tmp/

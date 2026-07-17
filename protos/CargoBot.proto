@@ -222,7 +222,7 @@ PROTO CargoBot [
                   }
                 ]
                 name "bottom camera"
-                fieldOfView 1
+                fieldOfView 1.5
                 recognition Recognition {
                 }
               }
