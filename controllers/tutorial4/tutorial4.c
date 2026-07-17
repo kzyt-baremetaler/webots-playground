@@ -153,11 +153,11 @@ int state_machine()
 				wb_motor_set_velocity(rightMotor, 0.5);
 				wb_motor_set_velocity(leftMotor, 0.5);
 			} else if (width/2 - (x1+x2)/2 > 0) {
-				wb_motor_set_velocity(rightMotor, 0.5);
-				wb_motor_set_velocity(leftMotor, 0.55);
-			} else if (width/2 - (x1+x2)/2 < 0) {
 				wb_motor_set_velocity(rightMotor, 0.55);
 				wb_motor_set_velocity(leftMotor, 0.5);
+			} else if (width/2 - (x1+x2)/2 < 0) {
+				wb_motor_set_velocity(rightMotor, 0.5);
+				wb_motor_set_velocity(leftMotor, 0.55);
 			}
 		} else {
 			// 荷物が近くて、マーカーがカメラに入らないので直進
