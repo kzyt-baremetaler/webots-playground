@@ -1,5 +1,7 @@
 {
     "C_Cpp.default.includePath": [
-        "C:\\Users\\tani\\AppData\\Local\\Programs\\Webots\\include\\controller\\cpp"
+        "${workspaceFolder}/**",
+        "C:/Users/tani/AppData/Local/Programs/Webots/include/controller/c",
+        "C:/Users/tani/AppData/Local/Programs/Webots/include/controller/cpp"
     ]
 }

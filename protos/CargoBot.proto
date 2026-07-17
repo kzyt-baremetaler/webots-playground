@@ -26,6 +26,9 @@ PROTO CargoBot [
           Gyro {
             name "gyro"
           }
+          Compass {
+            name "compass"
+          }
           Track {
             translation 0 0.4 -0.05
             children [
@@ -337,11 +340,14 @@ PROTO CargoBot [
                           name "lift motor"
                           maxForce 100
                         }
-                      ]
+                        PositionSensor {
+                          name "liftMotor position"
+                        }                      ]
                       endPoint Solid {
                         translation 0.5499999999999999 0 0.12
                         children [
                           DistanceSensor {
+                            name "distance sensor"
                             translation 0.02 0 0
                             lookupTable [
                               0 1000 0
