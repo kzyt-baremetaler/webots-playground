@@ -149,9 +149,6 @@ PROTO CargoBot [
             contactMaterial "trackMaterial"
             boundingObject Group {
               children [
-                Box {
-                  size 0.8 0.1 0.2
-                }
                 Pose {
                   translation 0.4 0 0
                   rotation 1 0 0 1.5708
