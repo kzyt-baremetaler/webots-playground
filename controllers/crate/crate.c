@@ -16,7 +16,7 @@
 #include <math.h>
 
 #define TIME_STEP 32
-#define THRESHOLD_G 5.0  // 5G以上の衝撃で壊れる設定
+#define THRESHOLD_G 4.0  // 4G以上の衝撃で壊れる設定
 
 /*
  * This is the main program.
@@ -24,6 +24,7 @@
  * "controllerArgs" field of the Robot node
  */
 int main(int argc, char **argv) {
+  double max_g = 0.0;
   wb_robot_init();
 
   // 加速度センサのセットアップ
@@ -31,6 +32,7 @@ int main(int argc, char **argv) {
   wb_accelerometer_enable(accel, TIME_STEP);
 
   bool is_broken = false;
+  for (int i = 0; i < 60; i++) wb_robot_step(TIME_STEP);
 
   while (wb_robot_step(TIME_STEP) != -1) {
     if (!is_broken) {
@@ -42,9 +44,10 @@ int main(int argc, char **argv) {
       
       // 重力加速度(9.81)で割り、G単位に変換
       double g_force = accel_mag / 9.81;
-      printf("G %f\n",g_force);
-      if (g_force > THRESHOLD_G) {
-        printf("【警告】荷物が破損しました！ 衝撃: %f G\n", g_force);
+      if (max_g < g_force) max_g = g_force;
+      printf("G %f\n",max_g);
+      if (max_g > THRESHOLD_G) {
+        printf("【警告】荷物が破損しました！ 衝撃: %f G\n", max_g);
         is_broken = true;
         
         // ここに破損時の挙動を追加
