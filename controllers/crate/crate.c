@@ -16,7 +16,7 @@
 #include <math.h>
 
 #define TIME_STEP 32
-#define THRESHOLD_G 5.0  // 5G以上の衝撃で壊れる設定
+#define THRESHOLD_G 2.0  // 2G以上の衝撃で壊れる設定
 
 /*
  * This is the main program.
@@ -25,6 +25,7 @@
  */
 int main(int argc, char **argv) {
   double max_g = 0.0;
+  double g_dat[3] = {0.0,0.0,0.0};
   wb_robot_init();
 
   // 加速度センサのセットアップ
@@ -39,8 +40,12 @@ int main(int argc, char **argv) {
       // センサ値を取得 (m/s^2)
       const double *values = wb_accelerometer_get_values(accel);
       
+      g_dat[0] = g_dat[1];
+      g_dat[1] = g_dat[2];
       // 合成加速度を計算
-      double accel_mag = sqrt(values[0]*values[0] + values[1]*values[1] + values[2]*values[2]);
+      g_dat[2] = sqrt(values[0]*values[0] + values[1]*values[1] + values[2]*values[2]);
+
+      double accel_mag = (g_dat[0] + g_dat[1] + g_dat[2]) / 3.0;
       
       // 重力加速度(9.81)で割り、G単位に変換
       double g_force = accel_mag / 9.81;
