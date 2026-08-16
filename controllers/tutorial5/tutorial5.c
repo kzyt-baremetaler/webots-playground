@@ -502,14 +502,14 @@ int putoff_state()
 		break;
 	case 2:
 		// rift down
-		wb_motor_set_position(liftMotor, 0.23);
+		wb_motor_set_position(liftMotor, 0.3);
 		wb_motor_set_velocity(liftMotor, -0.2);
 		state = 3;
 		break;
 	case 3:
 		{
 			double pos = wb_position_sensor_get_value(liftPosition);
-			if (pos < 0.25) {
+			if (pos < 0.31) {
 				wb_motor_set_position(liftMotor, 0);
 				wb_motor_set_velocity(rightMotor, -0.5);
 				wb_motor_set_velocity(leftMotor, -0.5);

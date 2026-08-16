@@ -16,7 +16,7 @@
 #include <math.h>
 
 #define TIME_STEP 32
-#define THRESHOLD_G 4.0  // 4G以上の衝撃で壊れる設定
+#define THRESHOLD_G 5.0  // 5G以上の衝撃で壊れる設定
 
 /*
  * This is the main program.
